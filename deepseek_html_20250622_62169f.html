@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free 100GB Data Offer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particle Rain Effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 15px;
+            background: linear-gradient(to bottom, #00f7ff, #00a2ff);
+            border-radius: 50%;
+            animation: rain linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes rain {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Header with Logo */
+        .header {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 183, 255, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(0, 183, 255, 0.7); }
+            50% { box-shadow: 0 0 30px rgba(0, 183, 255, 0.9), 0 0 60px rgba(0, 247, 255, 0.6); }
+            100% { box-shadow: 0 0 15px rgba(0, 183, 255, 0.7); }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff; }
+            to { text-shadow: 0 0 20px #00f7ff, 0 0 30px #00a2ff, 0 0 40px #0077ff; }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Form Styling */
+        .form-container {
+            background: rgba(10, 15, 40, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 20px;
+            border: 2px solid rgba(0, 247, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 183, 255, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #00f7ff;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #00a2ff;
+            border-radius: 10px;
+            background: rgba(0, 10, 30, 0.7);
+            color: white;
+            font-size: 1.2rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #00f7ff;
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #0072ff, #00c6ff);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 183, 255, 0.7);
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            box-shadow: 0 0 25px rgba(0, 183, 255, 0.9);
+            transform: translateY(-3px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Loading Section */
+        .loading-section {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 247, 255, 0.3);
+            border-top: 5px solid #00f7ff;
+            border-radius: 50%;
+            margin: 20px auto;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.4rem;
+            color: #00f7ff;
+            margin: 20px 0;
+        }
+
+        /* Share Section */
+        .share-section {
+            display: none;
+            text-align: center;
+            background: rgba(10, 15, 40, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 2px solid rgba(0, 247, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 183, 255, 0.5);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .share-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #00f7ff;
+            text-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
+        }
+
+        .share-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .share-text {
+            background: rgba(0, 10, 30, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #00a2ff;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .share-text span {
+            color: #00f7ff;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Neon Glow Effect */
+        .neon-border {
+            position: relative;
+        }
+
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #ff00cc, #00ccff, #00ffcc, #ff00cc);
+            background-size: 400%;
+            z-index: -1;
+            animation: neon-glow 3s linear infinite;
+            filter: blur(10px);
+            opacity: 0.7;
+        }
+
+        @keyframes neon-glow {
+            0% { background-position: 0 0; }
+            100% { background-position: 400% 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            .container {
+                padding: 10px;
+            }
+            .form-container, .share-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Rain Effect -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="header">
+        <img src="https://i.supaimg.com/bbc570b2-4258-43fa-9f9c-57ef729566f2.png" alt="Free Data Offer" class="logo">
+        <h1>100 GB Free Data</h1>
+    </div>
+
+    <div class="container">
+        <div class="form-container neon-border">
+            <div class="input-group">
+                <label for="phone"><i class="fas fa-mobile-alt"></i> Enter Your Mobile Number</label>
+                <input type="tel" id="phone" placeholder="e.g. 03XXXXXXXX" required>
+            </div>
+            <button class="btn" id="get-data-btn">
+                <i class="fas fa-gift"></i> Get Free 100GB Data
+            </button>
+        </div>
+
+        <div class="loading-section" id="loading-section">
+            <div class="spinner"></div>
+            <p class="loading-text">Processing your request...</p>
+        </div>
+
+        <div class="share-section" id="share-section">
+            <h2><i class="fas fa-share-alt"></i> Share with Friends</h2>
+            <p>Share this offer with <span>5 friends</span> to unlock your free data!</p>
+            
+            <div class="share-text">
+                <p><span>Get Free 100 GB Data!</span> 🎉</p>
+                <p>Claim your free data package now:</p>
+                <p>https://free100gbdata-offer.com</p>
+            </div>
+            
+            <button class="btn" id="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> Share via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2023 Free Data Offer. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Create particle rain effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 100;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position and animation duration
+                const posX = Math.random() * 100;
+                const duration = 2 + Math.random() * 3;
+                const delay = Math.random() * 5;
+                const size = 1 + Math.random() * 3;
+                
+                particle.style.left = `${posX}vw`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size * 7}px`;
+                particle.style.opacity = 0.2 + Math.random() * 0.5;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            const getDataBtn = document.getElementById('get-data-btn');
+            const loadingSection = document.getElementById('loading-section');
+            const shareSection = document.getElementById('share-section');
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            const phoneInput = document.getElementById('phone');
+            
+            // Validate phone number (accepts any 10-digit number)
+            phoneInput.addEventListener('input', function() {
+                const cleanedValue = phoneInput.value.replace(/\D/g, '');
+                if (cleanedValue.length === 10) {
+                    phoneInput.style.borderColor = '#00ff00';
+                } else {
+                    phoneInput.style.borderColor = '#00a2ff';
+                }
+            });
+            
+            // Handle Get Data button click
+            getDataBtn.addEventListener('click', function() {
+                const cleanedValue = phoneInput.value.replace(/\D/g, '');
+                
+                if (cleanedValue.length !== 10) {
+                    alert('Please enter a valid 10-digit phone number');
+                    phoneInput.style.borderColor = '#ff0000';
+                    phoneInput.focus();
+                    return;
+                }
+                
+                // Show loading
+                document.querySelector('.form-container').style.display = 'none';
+                loadingSection.style.display = 'block';
+                
+                // Simulate processing delay
+                setTimeout(() => {
+                    loadingSection.style.display = 'none';
+                    shareSection.style.display = 'block';
+                    
+                    // Auto scroll to share section
+                    shareSection.scrollIntoView({ behavior: 'smooth' });
+                }, 3000);
+            });
+            
+            // Handle WhatsApp share button
+            whatsappBtn.addEventListener('click', function() {
+                const message = encodeURIComponent("Get Free 100 GB Data! 🎉\n\nClaim your free data package now:\nhttps://free100gbdata-offer.com");
+                const whatsappUrl = `https://wa.me/?text=${message}`;
+                window.open(whatsappUrl, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
